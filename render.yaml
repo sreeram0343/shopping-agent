@@ -13,6 +13,12 @@ services:
         sync: false # User will input secret in Render dashboard
       - key: ALLOWED_ORIGINS
         value: "*" # Set to '*' for seamless deployment, or restrict to your custom Vercel domain
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGCHAIN_API_KEY
+        sync: false # User will input secret in Render dashboard
+      - key: LANGCHAIN_PROJECT
+        value: "RUNE_AI"
     
     # Optional persistent disk for uploaded files
     disk:
