@@ -2,6 +2,8 @@ import base64
 import json
 import os
 import sqlite3
+import logging
+import time
 from typing import Optional
 
 from dotenv import load_dotenv
@@ -11,6 +13,13 @@ from langchain_core.messages import HumanMessage
 from langchain_groq import ChatGroq
 
 from reviews_api import get_product_rating
+
+# Configure structured production logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
+logger = logging.getLogger("shopping_agent")
 
 load_dotenv()
 
@@ -32,6 +41,9 @@ def search_products(query: str, max_price: Optional[float] = None, is_organic: O
     Returns a JSON array of matching products, each with: id, name, category, price,
     description, is_organic.
     """
+    start_time = time.time()
+    logger.info(f"Executing search_products: query='{query}', max_price={max_price}, is_organic={is_organic}")
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
@@ -66,6 +78,9 @@ def search_products(query: str, max_price: Optional[float] = None, is_organic: O
         }
         for row in rows
     ]
+    
+    latency = (time.time() - start_time) * 1000
+    logger.info(f"Finished search_products. Matches found: {len(products)}. Latency: {latency:.2f}ms")
     return json.dumps(products)
 
 
@@ -75,7 +90,13 @@ def get_rating(product_id: int) -> str:
     Get the average customer rating and total review count for a product by its ID.
     Returns a JSON object with: product_id, average_rating, review_count.
     """
+    start_time = time.time()
+    logger.info(f"Executing get_rating: product_id={product_id}")
+    
     result = get_product_rating(product_id)
+    
+    latency = (time.time() - start_time) * 1000
+    logger.info(f"Finished get_rating. Rating: {result.get('average_rating')} (Count: {result.get('review_count')}). Latency: {latency:.2f}ms")
     return json.dumps(result)
 
 
@@ -85,6 +106,9 @@ def checkout(product_id: int) -> str:
     Place an order for the given product ID. Saves the order to the database and returns
     a confirmation message with the order ID, product name, and price.
     """
+    start_time = time.time()
+    logger.info(f"Executing checkout: product_id={product_id}")
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT name, price FROM products WHERE id = ?", (product_id,))
@@ -92,6 +116,7 @@ def checkout(product_id: int) -> str:
 
     if not row:
         conn.close()
+        logger.warning(f"Checkout failed: Product ID {product_id} not found.")
         return f"Error: product with ID {product_id} not found."
 
     name, price = row
@@ -103,10 +128,14 @@ def checkout(product_id: int) -> str:
     conn.commit()
     conn.close()
 
-    return (
+    res_message = (
         f"Order #{order_id} confirmed! '{name}' has been successfully ordered for ${price:.2f}. "
         f"Your order will arrive in 3-5 business days. Thank you for shopping with us!"
     )
+    
+    latency = (time.time() - start_time) * 1000
+    logger.info(f"Finished checkout. Created Order #{order_id}. Latency: {latency:.2f}ms")
+    return res_message
 
 
 @tool
@@ -116,6 +145,9 @@ def describe_product_image(image_path: str) -> str:
     Use this when the user uploads a photo of a product they are interested in.
     The returned attributes can be used directly with search_products.
     """
+    start_time = time.time()
+    logger.info(f"Executing describe_product_image: image_path='{image_path}'")
+    
     with open(image_path, "rb") as f:
         image_data = base64.b64encode(f.read()).decode()
 
@@ -141,6 +173,9 @@ def describe_product_image(image_path: str) -> str:
     ])
 
     response = vision_llm.invoke([message])
+    
+    latency = (time.time() - start_time) * 1000
+    logger.info(f"Finished describe_product_image. Latency: {latency:.2f}ms")
     return response.content
 
 

@@ -1,0 +1,49 @@
+name: CI Build Verification
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-checks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Check Backend Syntax & Compilation
+      run: |
+        python -m py_compile main.py app.py reviews_api.py setup_db.py shopping_agent.py
+
+  frontend-checks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Frontend Dependencies
+      working-directory: ./frontend
+      run: |
+        npm install
+
+    - name: Compile Client Build
+      working-directory: ./frontend
+      run: |
+        npm run build

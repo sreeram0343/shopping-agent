@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: shopping-agent-api
+    runtime: docker
+    repo: https://github.com/sreeram0343/shopping-agent
+    plan: starter # Starter plan supports docker web services
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: GROQ_API_KEY
+        sync: false # User will input secret in Render dashboard
+      - key: GOOGLE_API_KEY
+        sync: false # User will input secret in Render dashboard
+      - key: ALLOWED_ORIGINS
+        value: "https://shopping-agent.vercel.app,http://localhost:5173" # Update with actual frontend Vercel URL
+    
+    # Optional persistent disk for uploaded files
+    disk:
+      name: uploads-disk
+      mountPath: /app/uploads
+      sizeGB: 1
