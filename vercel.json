@@ -5,14 +5,12 @@
       "use": "@vercel/static-build"
     }
   ],
-  "routes": [
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/((?!assets/|api/|favicon.ico).*)",
+      "destination": "/index.html"
     }
   ]
 }
