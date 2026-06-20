@@ -1,11 +1,11 @@
-# 🌌 Antigravity: Futuristic AI Shopping Assistant
+# 🌌 RUNE AI: Luxury Glassmorphism Shopping Assistant
 
 [![Vite](https://img.shields.io/badge/Frontend-Vite%20%2B%20React-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![LangChain](https://img.shields.io/badge/Agent-LangChain-3F51B5?style=for-the-badge&logo=chainlink&logoColor=white)](https://python.langchain.com/)
 [![Docker](https://img.shields.io/badge/Container-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
-An advanced, AI-powered shopping assistant built with a **zero-gravity antigravity theme**. The interface features floating frosted glassmorphism panels, interactive 3D elements, detailed radar charts, and a cosmic "Gravity Core" data singularity black hole. 
+An advanced, AI-powered shopping assistant built with a **zero-gravity luxury aesthetic**. The interface is composed of translucent, frosted glassmorphism panels floating against a pristine, light-themed workspace with champagne gold, platinum, and charcoal details.
 
 Powered by **Gemini (via Google API) & Groq LLMs** orchestrated with **LangChain**, this agent handles product searches, rating analysis, customer reviews aggregation, image description, and instant checkouts through an interactive chat interface.
 
@@ -13,11 +13,11 @@ Powered by **Gemini (via Google API) & Groq LLMs** orchestrated with **LangChain
 
 ## 🔮 Interactive UI/UX Masterpiece
 
-- **Frosted Glassmorphism**: Floating panels styled with frosted glass overlays (`backdrop-filter`) and volumetric neon purple/cyan lighting.
-- **Gravity Core (Right Panel)**: An interactive HTML5 canvas rendering a cosmic black hole singularity. Features swirling cyan accretion dust, orbiting 3D data nodes representing search criteria, and vector links that deflect gravitationally toward the user's cursor.
+- **Light Glassmorphism**: Translucent frosted crystal panels styled with a high-contrast white border, intense backdrop blur, and soft golden drop shadows.
+- **Golden Gravity Core (Right Panel)**: An interactive HTML5 canvas rendering a cosmic golden light singularity. Features swirling gold and silver dust particles, orbiting 3D data nodes representing search criteria, and vector links that deflect gravitationally toward the user's cursor.
 - **Suspended 3D Product Cards**: Zero-gravity hover animations where the product icons (e.g. headphones) float upward and rotate out of their container cards.
 - **Spec Radar Chart**: An SVG-based hexagonal chart comparing audio specifications (ANC, Bass, Treble, Stage, Comfort, Battery) dynamically across candidate headphones.
-- **Lotus of Serenity**: A white breathing vector lotus flower drifting in the bottom left corner.
+- **Lotus of Serenity**: A pristine white breathing vector lotus flower drifting in the bottom left corner.
 
 ---
 
@@ -25,7 +25,7 @@ Powered by **Gemini (via Google API) & Groq LLMs** orchestrated with **LangChain
 
 ### Frontend (Desktop Optimized)
 * **Framework**: React 19 (via Vite)
-* **Styling**: Tailwind CSS v4 + Custom glassmorphism variables
+* **Styling**: Tailwind CSS v4 + Custom light glassmorphism variables
 * **Animations**: Framer Motion + CSS Keyframes
 * **Charts**: Recharts (Price Sparkline) + Custom Interactive SVG (Hexagonal Radar)
 
