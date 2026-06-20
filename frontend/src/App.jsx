@@ -16,7 +16,7 @@ import {
   ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid 
 } from 'recharts';
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+const BACKEND_URL = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
 
 const priceHistoryData = [
   { date: 'May 1', price: 22500 },
